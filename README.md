@@ -38,6 +38,16 @@ data
 │   ├── ...
 ```
 
+#### Bestanden die nodig zijn en als template gebruikt worden
+- `afbeeldingen/banner_TM.png` is de banner die onderaan de cursuspagina komt te staan.
+- `paginas/leerdoelen.html` is de pagina met de leerdoelen. Deze wordt toegevoegd aan de studiewijzer.
+- `paginas/planning.html` is de pagina met de planning. Deze wordt toegevoegd aan de studiewijzer.
+- `paginas/feedback_en_begeleiding.html` is de pagina met de feedback en begeleiding. Deze wordt toegevoegd aan de studiewijzer.
+- `paginas/toetsing.html` is de pagina met de toetsing. Deze wordt toegevoegd aan de studiewijzer.
+- `paginas/studiemateriaal.html` is de pagina met het studiemateriaal. Deze wordt toegevoegd aan de studiewijzer.
+- `paginas/startpagina.html` is de startpagina van de cursus. Deze pagina is de homepage van de cursus.
+
+
 ## Gebruik
 1. Download de repository
 2. Voorzie de mappenstructuur van de nodige bestanden
