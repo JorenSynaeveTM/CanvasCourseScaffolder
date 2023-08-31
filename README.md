@@ -1,2 +1,2 @@
 # CanvasCourseScaffolder
-Python script used for scaffolding an entire course in Canvas LMS.
+This is a Python script which can be run to scaffold a Canvas course.
