@@ -5,6 +5,9 @@ This is a Python script which can be run to scaffold a Canvas course. Instructio
 
 :information_source: *For more information, contact me at [joren.synaeve@thomasmore.be](mailto:joren.synaeve@thomasmore.be).*
 
+After usage, your Canvas course will look like this:
+![](https://i.imgur.com/eRDcyBt.png)
+
 ## Vereisten
 - Enige kennis van Python
 - Enige kennis van HTML en CSS
