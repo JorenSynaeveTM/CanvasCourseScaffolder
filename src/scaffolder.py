@@ -1,4 +1,5 @@
 import os
+from bs4 import BeautifulSoup as bs
 
 from src.models.module_content import ModuleContentType
 
@@ -134,6 +135,15 @@ class Scaffolder:
                 contact_list += f"<li><a href='mailto:{contact.strip()}'>{contact.strip()}</a></li>"
 
             syllabus_body = syllabus_body.replace("$contact$", contact_list)
+
+            # If the studiewijzer_module_id is None, it should be removed from the syllabus
+            if studiewijzer_module_id is None:
+                soup = bs(syllabus_body, 'html.parser')
+                print(soup)
+                # Find a tag with id 'studiewijzer' and remove it
+                studiewijzer_tag = soup.find(id='studiewijzer')
+                studiewijzer_tag.decompose()
+                syllabus_body = str(soup)
 
             # Create the syllabus page
             self.course.update(

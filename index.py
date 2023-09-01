@@ -23,16 +23,25 @@ if __name__ == "__main__":
         api_key = input("Geef de Canvas API key: ")
     canvas = Canvas("https://thomasmore.instructure.com/", api_key)
 
+    configure_syllabus = yes_no.ask_yes_no_question("Would you like to configure the syllabus?")
+    configure_studyguide = yes_no.ask_yes_no_question("Would you like to configure the study guide?")
+    configure_course_image = yes_no.ask_yes_no_question("Would you like to configure the course image?")
+    configure_pages = yes_no.ask_yes_no_question("Would you like to configure the pages?")
     configure_assignments = yes_no.ask_yes_no_question("Would you like to configure the assignments?")
     configure_quizzes = yes_no.ask_yes_no_question("Would you like to configure the quizzes?")
     configure_modules = yes_no.ask_yes_no_question("Would you like to configure the modules?")
 
+    studiewijzer_module_id = None
     course = canvas.get_course(info.course_id)
     scaffolder = Scaffolder(course, path_to_config_folder)
-    scaffolder.scaffold_course_image(info.course_image)
-    scaffolder.scaffold_pages(pages)
-    studiewijzer_module_id = scaffolder.scaffold_studiewijzer(info)
-    scaffolder.scaffold_syllabus(studiewijzer_module_id, info)
+    if configure_course_image:
+        scaffolder.scaffold_course_image(info.course_image)
+    if configure_pages:
+        scaffolder.scaffold_pages(pages)
+    if configure_studyguide:
+        studiewijzer_module_id = scaffolder.scaffold_studiewijzer(info)
+    if configure_syllabus:
+        scaffolder.scaffold_syllabus(studiewijzer_module_id, info)
     if configure_assignments or configure_quizzes:
         scaffolder.scaffold_assignment_groups(assignment_groups)
     if configure_assignments:
