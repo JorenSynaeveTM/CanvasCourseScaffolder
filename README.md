@@ -13,18 +13,7 @@ Het script maakt het mogelijk om volgende zaken in een Canvas cursus te configur
 - Toetsen
 - Bestanden
 
-Volgende zaken worden **altijd** geconfigureerd:
-- Startpagina van de cursus
-- Een module genaamd *studiezijwer* met daaronder volgende pagina's:
-	- Leerdoelen
-	- Planning
-	- Feedback en begeleiding
-	- Toetsing
-	- Studiemateriaal
-
-Andere modules, opdrachten, toetsen en bestanden zijn optioneel.
-
-Na gebruik zal je startpagina er als volgt uit zien (uiteraard zijn teksten aanpasbaar):
+Na gebruik zal bijvoorbeeld je startpagina er als volgt uit zien (uiteraard zijn teksten aanpasbaar):
 ![](https://i.imgur.com/eRDcyBt.png)
 
 ## Vereisten
@@ -69,7 +58,7 @@ data
 - `paginas/feedback_en_begeleiding.html` is de pagina met de feedback en begeleiding. Deze wordt toegevoegd aan de studiewijzer.
 - `paginas/toetsing.html` is de pagina met de toetsing. Deze wordt toegevoegd aan de studiewijzer.
 - `paginas/studiemateriaal.html` is de pagina met het studiemateriaal. Deze wordt toegevoegd aan de studiewijzer.
-- `paginas/startpagina.html` is de startpagina van de cursus. Deze pagina is de homepage van de cursus.
+- `paginas/cursusinleiding.html` bevat de tekst die wordt weergegeven op de startpagina onder "Over deze cursus".
 
 
 ## Gebruik
