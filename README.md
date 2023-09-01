@@ -3,7 +3,7 @@ This is a Python script which can be run to scaffold a Canvas course. Instructio
 
 :warning: *This script might delete existing content in your course. Please make sure you are aware of this before running the script.*
 
-:note: *For more information, contact me at [joren.synaeve@thomasmore.be](mailto:joren.synaeve@thomasmore.be).*
+:information_source: *For more information, contact me at [joren.synaeve@thomasmore.be](mailto:joren.synaeve@thomasmore.be).*
 
 ## Vereisten
 - Enige kennis van Python
