@@ -16,11 +16,9 @@ if __name__ == "__main__":
     info, assignment_groups, assignments, quizzes, modules, pages = config_reader.check_config()
 
     # Ask the user for a canvas api key, if not set as environment variable
-    api_key = None
-    if "CANVAS_API_KEY" in os.environ:
-        api_key = os.environ["CANVAS_API_KEY"]
-    else:
-        api_key = input("Geef de Canvas API key: ")
+    api_key = input("Geef de Canvas API key (laat leeg voor environment variable te gebruiken): ")
+    if api_key == "":
+        api_key = os.environ.get("CANVAS_API_KEY")
     canvas = Canvas("https://thomasmore.instructure.com/", api_key)
 
     configure_syllabus = yes_no.ask_yes_no_question("Would you like to configure the syllabus?")
