@@ -103,11 +103,22 @@ class Scaffolder:
             os.path.join(self.path_to_config, 'afbeeldingen', 'Banner_TM.png'))
         banner_image_id = res[1]['id']
 
-        syllabus = os.path.join(self.path_to_config, 'paginas', 'startpagina.html')
+        course_introduction_path = os.path.join(self.path_to_config, 'paginas', 'cursusinleiding.html')
+        with open(course_introduction_path, 'r') as html_file:
+            course_introduction_body = html_file.read()
+        html_file.close()
+
+        # Get the absolute path of the script
+        script_path = os.path.realpath(__file__)
+
+        # Get the script directory
+        script_dir = os.path.dirname(script_path)
+
+        syllabus_path = os.path.join(script_dir, 'templates', 'syllabus.html')
         # Check if syllabus.html file exists in the 'scaffold-resources' folder
-        if os.path.isfile(syllabus):
+        if os.path.isfile(syllabus_path):
             # Read the syllabus html file in the same directory as this script
-            with open(syllabus, 'r') as html_file:
+            with open(syllabus_path, 'r') as html_file:
                 syllabus_body = html_file.read()
             html_file.close()
 
@@ -133,13 +144,14 @@ class Scaffolder:
             all_contacts = info.contacts.split(',')
             for contact in all_contacts:
                 contact_list += f"<li><a href='mailto:{contact.strip()}'>{contact.strip()}</a></li>"
-
             syllabus_body = syllabus_body.replace("$contact$", contact_list)
+            # Replace $course_introduction$ with the actual course introduction
+            syllabus_body = syllabus_body.replace(
+                "$course_introduction$", course_introduction_body)
 
             # If the studiewijzer_module_id is None, it should be removed from the syllabus
             if studiewijzer_module_id is None:
                 soup = bs(syllabus_body, 'html.parser')
-                print(soup)
                 # Find a tag with id 'studiewijzer' and remove it
                 studiewijzer_tag = soup.find(id='studiewijzer')
                 studiewijzer_tag.decompose()
