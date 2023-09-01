@@ -5,7 +5,26 @@ This is a Python script which can be run to scaffold a Canvas course. Instructio
 
 :information_source: *For more information, contact me at [joren.synaeve@thomasmore.be](mailto:joren.synaeve@thomasmore.be).*
 
-After usage, your Canvas course will look like this:
+## Werking
+Het script maakt het mogelijk om volgende zaken in een Canvas cursus te configureren aan de hand van een Excel-bestand:
+- Startpagina van de cursus
+- Modules
+- Opdrachten
+- Toetsen
+- Bestanden
+
+Volgende zaken worden **altijd** geconfigureerd:
+- Startpagina van de cursus
+- Een module genaamd *studiezijwer* met daaronder volgende pagina's:
+	- Leerdoelen
+	- Planning
+	- Feedback en begeleiding
+	- Toetsing
+	- Studiemateriaal
+
+Andere modules, opdrachten, toetsen en bestanden zijn optioneel.
+
+Na gebruik zal je startpagina er als volgt uit zien (uiteraard zijn teksten aanpasbaar):
 ![](https://i.imgur.com/eRDcyBt.png)
 
 ## Vereisten
