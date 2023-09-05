@@ -1,47 +1,64 @@
 <style>
-    .tm-column {
-        flex-grow: 1;
-        width: calc(33.33% - 1rem);
-        padding: 0.5rem;
-    }
+  .tm-column {
+    flex-grow: 1;
+    width: calc(33.33% - 1rem);
+    padding: 0.5rem;
+  }
+
+  .tm-column__header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .tm-column__header h3 {
+    margin: 0;
+  }
+
+  .tm-column__header img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+    margin-right: 0.5rem;
+  }
 </style>
 
+<div style="display: flex">
+  <div class="tm-column">
+    <div class="tm-column__header">
+      <img src="/folder_template/afbeeldingen/info.png" alt="Icoon Contact" />
+      <h3>Info</h3>
+    </div>
+    <p>$course_introduction$</p>
+  </div>
 
-<div style="display: flex;">
-    <div class="tm-column">
-        <img src="https://thomasmore.instructure.com/courses/$course_id$/files/$over_image_id$/preview"
-            alt="Over deze cursus">
-        $course_introduction$
+  <div class="tm-column">
+    <div class="tm-column__header">
+      <img src="/folder_template/afbeeldingen/persoon.png" alt="Icoon Contact" />
+      <h3>Contactgegevens docent(en)</h3>
+    </div>
+    <p>Om vlot aan de slag te gaan met de cursus neem je best de <a href="http://ects.thomasmore.be/">ECTS-fiche</a> door, Daarnaast vind je hier ook de link naar de studiewijzer en de modules.</p>
+    <div>
+      <a class="btn" id="studiewijzer" title="Studiewijzer" href="/courses/$course_id$/modules/$studiewijzer_module_id$">Studiewijzer</a>
+      <a class="btn" title="Modules" href="/courses/$course_id$/modules">Modules</a>
+    </div>
+  </div>
 
+  <div class="tm-column">
+    <div class="tm-column__header">
+      <img src="/folder_template/afbeeldingen/lijst.png" alt="Icoon Contact" />
+      <h3>Contactgegevens docent(en)</h3>
     </div>
 
-    <div class="tm-column">
-        <img src="https://thomasmore.instructure.com/courses/$course_id$/files/$bronnen_image_id$/preview"
-            alt="Studiemateriaal">
-        <p>Om vlot aan de slag te gaan met de cursus neem je best de <a href="http://ects.thomasmore.be/">ECTS-fiche</a>
-            door, Daarnaast vind je hier ook de link
-            naar de studiewijzer en de modules.</p>
-        <div>
-            <a class="btn" id="studiewijzer" title="Studiewijzer"
-                href="/courses/$course_id$/modules/$studiewijzer_module_id$">Studiewijzer</a>
-            <a class="btn" title="Modules" href="/courses/$course_id$/modules">Modules</a>
-        </div>
-    </div>
-
-    <div class="tm-column">
-        <img src="https://thomasmore.instructure.com/courses/$course_id$/files/$contact_image_id$/preview"
-            alt="Contactpersonen">
-        <p>Heb je vragen over onze cursus? Neem gerust contact met ons op via onderstaande
-            gegevens. De docenten staat klaar om al je vragen te beantwoorden en je te voorzien van de benodigde
-            informatie.</p>
-        <ul>
-            $contact$
-        </ul>
-    </div>
+    <p>
+      Heb je vragen over onze cursus? Neem gerust contact met ons op via onderstaande gegevens. De docenten staat klaar om al je vragen te beantwoorden en je te voorzien van de benodigde informatie.
+    </p>
+    <ul>
+      $contact$
+    </ul>
+  </div>
 </div>
 
-<div style="width: 100%;">
-    <img style="width: 100%;"
-        src="https://thomasmore.instructure.com/courses/$course_id$/files/$banner_image_id$/preview"
-        alt="Thomas More banner">
+<div style="width: 100%">
+  <img style="width: 100%" src="https://thomasmore.instructure.com/courses/$course_id$/files/$banner_image_id$/preview" alt="Thomas More banner" />
 </div>
