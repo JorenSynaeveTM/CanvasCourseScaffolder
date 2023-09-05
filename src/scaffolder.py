@@ -87,32 +87,32 @@ class Scaffolder:
 
         print("Scaffolding syllabus...")
 
-        res = self.course.upload(
-            os.path.join(self.path_to_config, 'afbeeldingen', 'Over.png'))
-        over_image_id = res[1]['id']
+        # Get the absolute path of the script
+        script_path = os.path.realpath(__file__)
+
+        # Get the script directory
+        script_dir = os.path.dirname(script_path)
 
         res = self.course.upload(
-            os.path.join(self.path_to_config, 'afbeeldingen', 'Bronnen.png'))
-        bronnen_image_id = res[1]['id']
+            os.path.join(script_dir, 'templates', 'info.png'))
+        info_icon_id = res[1]['id']
 
         res = self.course.upload(
-            os.path.join(self.path_to_config, 'afbeeldingen', 'Contact.png'))
-        contact_image_id = res[1]['id']
+            os.path.join(script_dir, 'templates', 'lijst.png'))
+        list_icon_id = res[1]['id']
 
         res = self.course.upload(
-            os.path.join(self.path_to_config, 'afbeeldingen', 'Banner_TM.png'))
+            os.path.join(script_dir, 'templates', 'persoon.png'))
+        person_icon_id = res[1]['id']
+
+        res = self.course.upload(
+            os.path.join(script_dir, 'templates', 'Banner_TM.png'))
         banner_image_id = res[1]['id']
 
         course_introduction_path = os.path.join(self.path_to_config, 'paginas', 'cursusinleiding.html')
         with open(course_introduction_path, 'r') as html_file:
             course_introduction_body = html_file.read()
         html_file.close()
-
-        # Get the absolute path of the script
-        script_path = os.path.realpath(__file__)
-
-        # Get the script directory
-        script_dir = os.path.dirname(script_path)
 
         syllabus_path = os.path.join(script_dir, 'templates', 'syllabus.html')
         # Check if syllabus.html file exists in the 'scaffold-resources' folder
@@ -124,11 +124,11 @@ class Scaffolder:
 
             # Replace images
             syllabus_body = syllabus_body.replace(
-                "$over_image_id$", str(over_image_id))
+                "$info_icon_id$", str(info_icon_id))
             syllabus_body = syllabus_body.replace(
-                "$bronnen_image_id$", str(bronnen_image_id))
+                "$list_icon_id$", str(list_icon_id))
             syllabus_body = syllabus_body.replace(
-                "$contact_image_id$", str(contact_image_id))
+                "$person_icon_id$", str(person_icon_id))
             syllabus_body = syllabus_body.replace(
                 "$banner_image_id$", str(banner_image_id))
 
