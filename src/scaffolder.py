@@ -149,14 +149,19 @@ class Scaffolder:
             syllabus_body = syllabus_body.replace(
                 "$course_introduction$", course_introduction_body)
 
+            soup = bs(syllabus_body, 'html.parser')
             # If the studiewijzer_module_id is None, it should be removed from the syllabus
             if studiewijzer_module_id is None:
-                soup = bs(syllabus_body, 'html.parser')
                 # Find a tag with id 'studiewijzer' and remove it
                 studiewijzer_tag = soup.find(id='studiewijzer')
                 studiewijzer_tag.decompose()
-                syllabus_body = str(soup)
 
+            # If there is only one contact, text should be replaced
+            if len(all_contacts) == 1:
+                soup.find(id='contacts').string = "De docent staat"
+
+            # Parse soup to a string
+            syllabus_body = str(soup)
             # Create the syllabus page
             self.course.update(
                 course=({"syllabus_body": syllabus_body, "default_view": "syllabus"}))
