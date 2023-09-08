@@ -21,6 +21,11 @@ Na gebruik zal bijvoorbeeld je startpagina er als volgt uit zien (uiteraard zijn
 - Enige kennis van HTML en CSS
 - Een Canvas API token (zie verder)
 
+### Installatie van de packages
+1. Installeer Python 3.8 of hoger
+2. Open een terminal (in de map van de repository)
+3. Voer het volgende commando uit: `pip install -r requirements.txt`
+
 ### Een Canvas API token aanmaken
 1. Ga naar Canvas en log in
 2. Klik op Account > Instellingen
