@@ -12,7 +12,7 @@ class Scaffolder:
     def scaffold_course_image(self, path_to_image):
         """ Scaffold the image if present """
 
-        if path_to_image == None or path_to_image == "":
+        if path_to_image is None or path_to_image == "":
             return
 
         print("Scaffolding image...")
@@ -275,8 +275,10 @@ class Scaffolder:
             module.id = m.id
             # Scaffold the contents
             for content in module.contents:
+                module_item = None
+
                 if content.type == ModuleContentType.URL.name:
-                    m.create_module_item({
+                    module_item = m.create_module_item({
                         'type': "ExternalUrl",
                         'title': content.display_name,
                         'external_url': content.url,
@@ -289,7 +291,7 @@ class Scaffolder:
                     if assignment is None:
                         raise Exception(
                             f"Assignment with name {content.assignment} not found")
-                    m.create_module_item({
+                    module_item = m.create_module_item({
                         'type': "Assignment",
                         'title': content.display_name,
                         'content_id': assignment.id,
@@ -301,7 +303,7 @@ class Scaffolder:
                     if quiz is None:
                         raise Exception(
                             f"Quiz with name {content.quiz} not found")
-                    m.create_module_item({
+                    module_item = m.create_module_item({
                         'type': "Quiz",
                         'title': content.display_name,
                         'content_id': quiz.id,
@@ -316,13 +318,28 @@ class Scaffolder:
                     res = self.course.upload(content.file_path)
                     file_id = res[1]['id']
                     # Create the module item
-                    m.create_module_item({
+                    module_item = m.create_module_item({
                         'type': "File",
                         'title': content.display_name,
                         'content_id': file_id,
                         'published': content.published,
                     })
+                elif content.type == ModuleContentType.SUB_HEADER.name:
+                    # Create the sub header
+                    module_item = m.create_module_item({
+                        'type': 'SubHeader',
+                        'title': content.display_name,
+                        'indent': content.indent,
+                        'published': content.published,
+                    })
 
-            m.edit(module={'published': module.published})
+                if not content.published:
+                    try:
+                        module_item.edit(module_item={'published': content.published})
+                    except:
+                        print(f"Failed to update publish state on module item {module_item.title}")
+
+            if not module.published:
+                m.edit(module={'published': module.published})
 
         print("Modules scaffolded.")

@@ -6,10 +6,11 @@ class ModuleContentType(Enum):
     URL = 2
     QUIZ = 3
     FILE = 4
+    SUB_HEADER = 5
 
 
 class ModuleContent:
-    def __init__(self, type, display_name, published, assignment, url, quiz, file_path):
+    def __init__(self, type, display_name, published, assignment, url, quiz, file_path, indent=0):
         self.type = type
         self.display_name = display_name
         self.published = published
@@ -17,3 +18,4 @@ class ModuleContent:
         self.url = url
         self.quiz = quiz
         self.file_path = file_path
+        self.indent = indent

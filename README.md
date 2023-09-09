@@ -33,6 +33,7 @@ Na gebruik zal bijvoorbeeld je startpagina er als volgt uit zien (uiteraard zijn
 4. Klik op **Nieuw toegangstoken**
 5. Geef het token een naam (doel) en klik op **Toegangstoken genereren**
 6. Kopieer het token en bewaar het op een veilige plaats
+7. &lbrack;Optioneel: Bewaar de API token in een environment variable met de naam CANVAS_API_KEY&rbrack;
 
 Een voorbeeld van een token ziet er als volgt uit: `13183~cnTzlTlJlQfd3CQOYkfKPKu933hu2p9LQmFqKjdbYTvOEaiY9Rt6WjyQMEOS0gTG`.
 
