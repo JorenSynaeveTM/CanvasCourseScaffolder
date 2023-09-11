@@ -115,6 +115,13 @@ class Scaffolder:
         html_file.close()
 
         syllabus_path = os.path.join(script_dir, 'templates', 'syllabus.html')
+
+        # Add the ability to overwrite the syllabus page, this shouldn't be done without good reason.
+        # Most courses should use the default layout.
+        syllabus_overwrite = os.path.join(self.path_to_config, 'paginas', 'syllabus.html')
+        if os.path.isfile(syllabus_overwrite):
+            syllabus_path = syllabus_overwrite
+
         # Check if syllabus.html file exists in the 'scaffold-resources' folder
         if os.path.isfile(syllabus_path):
             # Read the syllabus html file in the same directory as this script
@@ -247,7 +254,7 @@ class Scaffolder:
                 raise Exception(
                     f"Assignment group with id {quiz.assignment_group} not found")
             q = self.course.create_quiz(quiz={
-                'title': quiz.name,
+                'title': quiz.title,
                 'due_at': quiz.due_at,
                 'points_possible': quiz.points,
                 'assignment_group_id': canvas_assignment_group.id,
@@ -263,10 +270,20 @@ class Scaffolder:
 
         print("Scaffolding modules...")
 
+        # If the quizzes weren't configured, they must be retrieved from Canvas.
+        # Otherwise the id's aren't available.
+        if quizzes is None:
+            quizzes = self.course.get_quizzes()
+
+        # If the assignments weren't configured, they must be retrieved from Canvas.
+        if assignments is None:
+            assignments = self.course.get_assignments()
+
         # Delete all existing modules
         existing_modules = self.course.get_modules()
         for module in existing_modules:
-            module.delete()
+            if "Studiewijzer" not in module.name:
+                module.delete()
         # Scaffold the modules
         for module in modules:
             m = self.course.create_module(module={
@@ -299,7 +316,7 @@ class Scaffolder:
                     })
                 elif content.type == ModuleContentType.QUIZ.name:
                     quiz = next(
-                        (x for x in quizzes if x.name == content.quiz), None)
+                        (x for x in quizzes if x.title == content.quiz), None)
                     if quiz is None:
                         raise Exception(
                             f"Quiz with name {content.quiz} not found")

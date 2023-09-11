@@ -12,7 +12,7 @@ from src.models.module_content import ModuleContent
 
 def if_empty_throw_error(value, error_message):
     """ Throws an error if the value is empty """
-    if value == None or value == "":
+    if value is None or value == "":
         raise Exception(error_message)
 
 
@@ -115,7 +115,7 @@ class ConfigReader:
             quizzes.append(
                 Quiz(
                     assignment_group=row[0],
-                    name=row[1],
+                    title=row[1],
                     due_at=row[2],
                     available_at=row[3],
                     available_until=row[4],

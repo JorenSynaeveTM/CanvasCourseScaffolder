@@ -47,4 +47,8 @@ if __name__ == "__main__":
     if configure_quizzes:
         quizzes = scaffolder.scaffold_quizzes(quizzes, assignment_groups)
     if configure_modules:
-        scaffolder.scaffold_modules(modules, assignments, quizzes)
+        scaffolder.scaffold_modules(
+            modules,
+            assignments if configure_assignments else None,
+            quizzes if configure_quizzes else None
+        )
