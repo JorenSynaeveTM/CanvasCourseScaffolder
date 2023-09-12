@@ -1,0 +1,10 @@
+{
+    "name": "Python 3",
+    "dockerFile": "Dockerfile",
+    "customizations": {
+        "extensions": [
+            "ms-python.python",
+            "george-alisson.html-preview-vscode"
+        ]
+    }
+}

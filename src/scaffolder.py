@@ -1,5 +1,6 @@
 import os
 from bs4 import BeautifulSoup as bs
+import markdown
 
 from src.models.module_content import ModuleContentType
 
@@ -31,6 +32,11 @@ class Scaffolder:
             existing_pages = self.course.get_pages(search_term=page.title)
             for ex_page in existing_pages:
                 ex_page.delete()
+
+            print(f"Scaffolding page {page.type} - {page.title} ...")
+
+            if (page.type == "MD"):
+                page.body = markdown.markdown(page.body)
 
             # Create the page
             page_id = self.course.create_page(wiki_page={
@@ -109,10 +115,11 @@ class Scaffolder:
             os.path.join(script_dir, 'templates', 'Banner_TM.png'))
         banner_image_id = res[1]['id']
 
-        course_introduction_path = os.path.join(self.path_to_config, 'paginas', 'cursusinleiding.html')
-        with open(course_introduction_path, 'r') as html_file:
-            course_introduction_body = html_file.read()
-        html_file.close()
+        course_introduction_path = os.path.join(self.path_to_config, 'paginas', 'cursusinleiding.md')
+        with open(course_introduction_path, 'r') as markdown_file:
+            course_introduction_body = markdown_file.read()
+        markdown_file.close()
+        course_introduction_body = markdown.markdown(course_introduction_body)
 
         syllabus_path = os.path.join(script_dir, 'templates', 'syllabus.html')
 
@@ -349,6 +356,18 @@ class Scaffolder:
                         'indent': content.indent,
                         'published': content.published,
                     })
+                elif content.type == ModuleContentType.PAGE.name:
+                    # Create the sub header
+                    page = self.course.get_pages(search_term=content.page_name)[0]
+                    print(page)
+                    module_item = m.create_module_item({
+                        'type': "Page",
+                        'title': page.title,
+                        'page_url': page.url,
+                        'published': content.published,
+                    })
+                else:
+                    raise Exception(f"Unknown module content type {content.type}")
 
                 if not content.published:
                     try:
