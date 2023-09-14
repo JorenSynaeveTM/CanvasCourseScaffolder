@@ -142,6 +142,7 @@ class ConfigReader:
             pages.append(Page(
                 title=row[0],
                 published=row[1],
+                type='HTML' if page_content_file.endswith('.html') else 'MD',
                 body='' if page_content_file == None else read_file_content(
                     os.path.join(self.path_to_config_folder, 'paginas', page_content_file)),
             ))
@@ -182,6 +183,8 @@ class ConfigReader:
                     os.path.join(self.path_to_config_folder, 'bestanden', file_path),
                     f"File {file_path} not found")
                 file_path = os.path.join(self.path_to_config_folder, 'bestanden', file_path)
+            
+            page_name = row[8]
 
             # Add the content to the module
             module.contents.append(
@@ -193,6 +196,7 @@ class ConfigReader:
                     url=row[5],
                     quiz=row[6],
                     file_path=file_path,
+                    page_name=page_name,
                 ))
 
         return modules

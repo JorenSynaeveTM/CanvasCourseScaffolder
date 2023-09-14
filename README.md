@@ -18,7 +18,7 @@ Na gebruik zal bijvoorbeeld je startpagina er als volgt uit zien (uiteraard zijn
 
 ## Vereisten
 - Enige kennis van Python
-- Enige kennis van HTML en CSS
+- Enige kennis van HTML en CSS, of Markdown
 - Een Canvas API token (zie verder)
 
 ### Installatie van de packages
