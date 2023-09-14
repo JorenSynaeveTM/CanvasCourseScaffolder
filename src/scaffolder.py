@@ -286,21 +286,26 @@ class Scaffolder:
                 module.delete()
         # Scaffold the modules
         for module in modules:
-            m = self.course.create_module(module={
+            new_module = self.course.create_module(module={
                 'name': module.name,
             })
-            module.id = m.id
+            module.id = new_module.id
+
+            module_published = True if module.published == 1 else False
+            if new_module.published != module_published:
+                new_module.edit(module={'published': module_published})
+
             # Scaffold the contents
             for content in module.contents:
                 module_item = None
 
                 if content.type == ModuleContentType.URL.name:
-                    module_item = m.create_module_item({
+                    module_item = new_module.create_module_item({
                         'type': "ExternalUrl",
                         'title': content.display_name,
                         'external_url': content.url,
                         'new_tab': True,
-                        'published': content.published,
+                        'indent': content.indent,
                     })
                 elif content.type == ModuleContentType.ASSIGNMENT.name:
                     assignment = next(
@@ -308,11 +313,11 @@ class Scaffolder:
                     if assignment is None:
                         raise Exception(
                             f"Assignment with name {content.assignment} not found")
-                    module_item = m.create_module_item({
+                    module_item = new_module.create_module_item({
                         'type': "Assignment",
                         'title': content.display_name,
                         'content_id': assignment.id,
-                        'published': content.published,
+                        'indent': content.indent,
                     })
                 elif content.type == ModuleContentType.QUIZ.name:
                     quiz = next(
@@ -320,11 +325,11 @@ class Scaffolder:
                     if quiz is None:
                         raise Exception(
                             f"Quiz with name {content.quiz} not found")
-                    module_item = m.create_module_item({
+                    module_item = new_module.create_module_item({
                         'type': "Quiz",
                         'title': content.display_name,
                         'content_id': quiz.id,
-                        'published': content.published,
+                        'indent': content.indent,
                     })
                 elif content.type == ModuleContentType.FILE.name:
                     # Check if the file exists
@@ -335,28 +340,27 @@ class Scaffolder:
                     res = self.course.upload(content.file_path)
                     file_id = res[1]['id']
                     # Create the module item
-                    module_item = m.create_module_item({
+                    module_item = new_module.create_module_item({
                         'type': "File",
                         'title': content.display_name,
                         'content_id': file_id,
-                        'published': content.published,
+                        'indent': content.indent,
                     })
                 elif content.type == ModuleContentType.SUB_HEADER.name:
                     # Create the sub header
-                    module_item = m.create_module_item({
+                    module_item = new_module.create_module_item({
                         'type': 'SubHeader',
                         'title': content.display_name,
                         'indent': content.indent,
-                        'published': content.published,
                     })
 
-                if not content.published:
+                print(module_item.published)
+
+                item_published = True if content.published == 1 else False
+                if module_item.published != item_published:
                     try:
-                        module_item.edit(module_item={'published': content.published})
+                        module_item.edit(module_item={'published': item_published})
                     except:
                         print(f"Failed to update publish state on module item {module_item.title}")
-
-            if not module.published:
-                m.edit(module={'published': module.published})
 
         print("Modules scaffolded.")
