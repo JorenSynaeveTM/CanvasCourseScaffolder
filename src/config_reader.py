@@ -193,6 +193,7 @@ class ConfigReader:
                     url=row[5],
                     quiz=row[6],
                     file_path=file_path,
+                    indent=row[8] if row[8] is not None else 0,
                 ))
 
         return modules
