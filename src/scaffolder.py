@@ -354,8 +354,6 @@ class Scaffolder:
                         'indent': content.indent,
                     })
 
-                print(module_item.published)
-
                 item_published = True if content.published == 1 else False
                 if module_item.published != item_published:
                     try:
