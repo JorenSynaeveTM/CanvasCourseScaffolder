@@ -231,6 +231,7 @@ class Scaffolder:
                 'assignment_group_id': assignment_group.id,
                 'published': assignment.published,
                 'description': assignment.description_content,
+                'omit_from_final_grade': assignment.omit_from_final_grade,
             })
             assignment.id = a.id
 

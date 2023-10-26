@@ -98,7 +98,8 @@ class ConfigReader:
                     points=row[5],
                     published=row[6],
                     description_content='' if assignment_description_file is None else read_file_content(
-                        os.path.join(self.path_to_config_folder, 'opdrachten', assignment_description_file))
+                        os.path.join(self.path_to_config_folder, 'opdrachten', assignment_description_file)),
+                    omit_from_final_grade = 0 if (row[8] is None or row[8] == '') else row[8]
                 ))
 
         return assignments
