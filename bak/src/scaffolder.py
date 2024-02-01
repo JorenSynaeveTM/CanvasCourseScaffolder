@@ -161,7 +161,9 @@ class Scaffolder:
             if studiewijzer_module_id is None:
                 # Find a tag with id 'studiewijzer' and remove it
                 studiewijzer_tag = soup.find(id='studiewijzer')
-                studiewijzer_tag.decompose()
+                # If the tag exists, remove it
+                if studiewijzer_tag is not None:
+                    studiewijzer_tag.decompose()
 
             # If there is only one contact, text should be replaced
             if len(all_contacts) == 1:

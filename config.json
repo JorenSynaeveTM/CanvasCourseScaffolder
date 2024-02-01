@@ -1,0 +1,264 @@
+{
+  "canvasCourseId": 10139,
+  "canvasCourseName": "OO Programming",
+  "tileImage": "canvas_tile.png",
+  "courseInfo": {
+    "shortDescription": ""
+  },
+  "ects": {
+    "planning": {
+      "items": [
+        {
+          "name": "Les 1: OOP principes deel 1"
+        },
+        {
+          "name": "Les 2: OOP principes deel 1"
+        },
+        {
+          "name": "Les 3: Statische klassen"
+        },
+        {
+          "name": "Les 4: Overerving deel 1"
+        },
+        {
+          "name": "Les 5: Overerving deel 2"
+        },
+        {
+          "name": "Les 6: Lijsten en OOP"
+        },
+        {
+          "name": "Les 7: Abstracte klassen"
+        },
+        {
+          "name": "Les 8: Interfaces"
+        },
+        {
+          "name": "Les 9: Enkelvoudige relaties"
+        },
+        {
+          "name": "Les 10: Meervoudige relaties"
+        },
+        {
+          "name": "Les 11: Unit testing"
+        },
+        {
+          "name": "Les 12: Exception handling"
+        }
+      ]
+    },
+    "courseMaterial": {
+      "items": [
+        {
+          "name": "Powerpoints met Lesmateriaal op Canvas"
+        },
+        {
+          "name": "Externe website met oefeningen"
+        },
+        {
+          "name": "GitHub classroom om oefeningen te maken en in te dienen"
+        }
+      ]
+    },
+    "leaningGoals": {
+      "items": [
+        {
+          "name": "Je gebruikt een klassenstructuur met overerving en statische klassen op een onderbouwde manier."
+        },
+        { "name": "Je past op een correcte manier collections en arrays toe." },
+        { "name": "Je past abstractie toe." },
+        {
+          "name": "Je gebruikt een klassenstructuur met correcte onderlinge relaties."
+        },
+        {
+          "name": "Je schrijft correcte en zinvolle testen voor bestaande code."
+        },
+        {
+          "name": "Je gebruikt excepties om fout- en uitzonderingssituaties op te vangen."
+        },
+        { "name": "Je maakt actief gebruik van versiebeheer." }
+      ]
+    },
+    "evaluation": {
+      "firstAttempt": {
+        "items": [
+          {
+            "name": "Permanente evaluatie",
+            "percentageOfTotal": 20,
+            "description": null
+          },
+          {
+            "name": "Tussentijds examen",
+            "percentageOfTotal": 20,
+            "description": "Dit is een individueel praktisch examen zonder communicatie en internet. Tijdens het praktisch examen mag er geen gebruik gemaakt worden van het cursusmateriaal dat aangeboden is op het leerplatform. Er mag geen gebruik gemaakt worden van eigen digitale hulpmiddelen."
+          },
+          {
+            "name": "Eindexamen",
+            "percentageOfTotal": 60,
+            "description": "Dit is een individueel praktisch examen zonder communicatie en internet. Tijdens het praktisch examen mag er geen gebruik gemaakt worden van het cursusmateriaal dat aangeboden is op het leerplatform. Er mag geen gebruik gemaakt worden van eigen digitale hulpmiddelen."
+          }
+        ]
+      },
+      "secondAttempt": {
+        "items": [
+          {
+            "name": "Examen",
+            "percentageOfTotal": 100,
+            "description": "Dit is een individueel praktisch examen zonder communicatie en internet. Tijdens het praktisch examen mag er geen gebruik gemaakt worden van het cursusmateriaal dat aangeboden is op het leerplatform. Er mag geen gebruik gemaakt worden van eigen digitale hulpmiddelen."
+          }
+        ]
+      }
+    }
+  },
+  "lecturers": {
+    "items": [
+      {
+        "firstname": "John",
+        "lastname": "Doe",
+        "email": "johndoe@thomasmore.be"
+      },
+      {
+        "firstname": "Jane",
+        "lastname": "Doe",
+        "email": "janedoe@thomasmore.be"
+      }
+    ]
+  },
+  "assignmentGroups": {
+    "items": [
+      {
+        "id": 1,
+        "name": "Permanente evaluatue",
+        "percentageOfTotal": 20
+      },
+      {
+        "id": 2,
+        "name": "Tussentijds examen",
+        "percentageOfTotal": 20
+      },
+      {
+        "id": 3,
+        "name": "Eindexamen",
+        "percentageOfTotal": 60
+      }
+    ]
+  },
+  "modules": {
+    "items": [
+      {
+        "id": 1,
+        "name": "Module 1",
+        "published": true
+      },
+      {
+        "id": 2,
+        "name": "Module 2",
+        "published": true
+      },
+      {
+        "id": 3,
+        "name": "Module 3",
+        "published": true
+      },
+      {
+        "id": 4,
+        "name": "Module 4",
+        "published": false
+      },
+      {
+        "id": 5,
+        "name": "Module 5",
+        "published": false
+      }
+    ]
+  },
+  "assignments": {
+    "items": [
+      {
+        "assignmentId": 1,
+        "assignmentGroupId": 1,
+        "name": "01.00",
+        "dueAt": "2020-07-30T18:00:00.000Z",
+        "pointsPossible": 10,
+        "published": true,
+        "descriptionFile": "01.00.html",
+        "mandatory": true
+      },
+      {
+        "assignmentId": 2,
+        "assignmentGroupId": 1,
+        "name": "01.00",
+        "dueAt": "2020-07-30T18:00:00.000Z",
+        "pointsPossible": 10,
+        "published": true,
+        "descriptionFile": "01.00.html",
+        "mandatory": true
+      },
+      {
+        "assignmentId": 3,
+        "assignmentGroupId": 1,
+        "name": "01.00",
+        "dueAt": "2020-07-30T18:00:00.000Z",
+        "pointsPossible": 10,
+        "published": true,
+        "descriptionFile": "01.00.html",
+        "mandatory": true
+      }
+    ]
+  },
+  "pages": {
+    "items": [
+      {
+        "pageId": 1,
+        "name": "Leerdoelen",
+        "published": true,
+        "bodyFile": "leerdoelen.html"
+      },
+      {
+        "pageId": 2,
+        "name": "Feedback en begeleiding",
+        "published": true,
+        "bodyFile": "feedback.html"
+      },
+      {
+        "pageId": 3,
+        "name": "Toetsing",
+        "published": true,
+        "bodyFile": "toetsing.html"
+      }
+    ]
+  },
+  "moduleItems": {
+    "items": [
+      {
+        "moduleItemId": 1,
+        "moduleId": 1,
+        "type": "subHeader",
+        "displayName": "Theorie",
+        "published": true,
+        "assignmentId": null,
+        "externalLink": null,
+        "indent": 0
+      },
+      {
+        "moduleItemId": 2,
+        "moduleId": 1,
+        "type": "assignment",
+        "displayName": "01.00",
+        "published": true,
+        "assignmentId": 1,
+        "externalLink": null,
+        "indent": 0
+      },
+      {
+        "moduleItemId": 3,
+        "moduleId": 2,
+        "type": "externalUrl",
+        "displayName": "Oplossingen 1",
+        "published": true,
+        "assignmentId": null,
+        "externalLink": "https://www.thomasmore.be",
+        "indent": 0
+      }
+    ]
+  }
+}
