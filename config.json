@@ -7,7 +7,7 @@
   },
   "ects": {
     "planning": {
-      "items": [
+      "planningItems": [
         {
           "name": "Les 1: OOP principes deel 1"
         },
@@ -47,7 +47,7 @@
       ]
     },
     "courseMaterial": {
-      "items": [
+      "courseMaterialItems": [
         {
           "name": "Powerpoints met Lesmateriaal op Canvas"
         },
@@ -59,8 +59,8 @@
         }
       ]
     },
-    "leaningGoals": {
-      "items": [
+    "learningGoals": {
+      "learningGoalsItems": [
         {
           "name": "Je gebruikt een klassenstructuur met overerving en statische klassen op een onderbouwde manier."
         },
@@ -80,11 +80,11 @@
     },
     "evaluation": {
       "firstAttempt": {
-        "items": [
+        "firstAttemptItems": [
           {
             "name": "Permanente evaluatie",
             "percentageOfTotal": 20,
-            "description": null
+            "description": ""
           },
           {
             "name": "Tussentijds examen",
@@ -99,7 +99,7 @@
         ]
       },
       "secondAttempt": {
-        "items": [
+        "secondAttemptItems": [
           {
             "name": "Examen",
             "percentageOfTotal": 100,
@@ -110,7 +110,7 @@
     }
   },
   "lecturers": {
-    "items": [
+    "LecturersItems": [
       {
         "firstname": "John",
         "lastname": "Doe",
@@ -124,7 +124,7 @@
     ]
   },
   "assignmentGroups": {
-    "items": [
+    "assignmentGroupsItems": [
       {
         "id": 1,
         "name": "Permanente evaluatue",
@@ -143,7 +143,7 @@
     ]
   },
   "modules": {
-    "items": [
+    "modulesItems": [
       {
         "id": 1,
         "name": "Module 1",
@@ -172,7 +172,7 @@
     ]
   },
   "assignments": {
-    "items": [
+    "assignmentsItems": [
       {
         "assignmentId": 1,
         "assignmentGroupId": 1,
@@ -206,7 +206,7 @@
     ]
   },
   "pages": {
-    "items": [
+    "pagesItems": [
       {
         "pageId": 1,
         "name": "Leerdoelen",
@@ -228,15 +228,15 @@
     ]
   },
   "moduleItems": {
-    "items": [
+    "moduleItemsItems": [
       {
         "moduleItemId": 1,
         "moduleId": 1,
         "type": "subHeader",
         "displayName": "Theorie",
         "published": true,
-        "assignmentId": null,
-        "externalLink": null,
+        "assignmentId": 0,
+        "externalLink": "",
         "indent": 0
       },
       {
@@ -246,7 +246,7 @@
         "displayName": "01.00",
         "published": true,
         "assignmentId": 1,
-        "externalLink": null,
+        "externalLink": "",
         "indent": 0
       },
       {
@@ -255,7 +255,7 @@
         "type": "externalUrl",
         "displayName": "Oplossingen 1",
         "published": true,
-        "assignmentId": null,
+        "assignmentId": 0,
         "externalLink": "https://www.thomasmore.be",
         "indent": 0
       }
