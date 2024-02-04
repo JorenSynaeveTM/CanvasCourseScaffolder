@@ -186,7 +186,7 @@
       {
         "assignmentId": 2,
         "assignmentGroupId": 1,
-        "name": "01.00",
+        "name": "01.01",
         "dueAt": "2020-07-30T18:00:00.000Z",
         "pointsPossible": 10,
         "published": true,
@@ -196,7 +196,7 @@
       {
         "assignmentId": 3,
         "assignmentGroupId": 1,
-        "name": "01.00",
+        "name": "01.02",
         "dueAt": "2020-07-30T18:00:00.000Z",
         "pointsPossible": 10,
         "published": true,
