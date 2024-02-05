@@ -2,7 +2,7 @@ import { apiClient } from "./api/client";
 import type { CourseConfig } from "./types/CourseConfig";
 import { readFileSync } from "fs";
 import Canvas from "./canvasapi/CanvasApi";
-import ModuleItem from "./canvasapi/types/ModuleItem";
+import { ModuleItem, ModuleItemType } from "./canvasapi/types/ModuleItem";
 import { CourseDefaultView } from "./canvasapi/types/Course";
 import mustache from "mustache";
 
@@ -49,7 +49,7 @@ const createAssignments = async (newGroups: Array<{ id: number, canvasId: number
             }
         );
 
-        return res;
+        return { id: assignment.assignmentId, canvasId: res.id }
     }));
 
     return newAssignments;
@@ -143,14 +143,12 @@ const configureEcts = async () => {
     return ectsPages;
 }
 
-
-
-const configureSyllabus = async () => {
-
-}
-
 const createModules = async () => {
-    var newModules = await Promise.all(courseConfig.modules.modulesItems.map(async (module) => {
+    let newModules: Array<{ id: number, canvasId: number }> = []
+
+    // Use a for loop here as the order of the modules is important
+    for (let i = 0; i < courseConfig.modules.modulesItems.length; i++) {
+        const module = courseConfig.modules.modulesItems[i];
         const res = await canvas.module.create(
             courseConfig.canvasCourseId,
             {
@@ -159,16 +157,13 @@ const createModules = async () => {
                 position: module.position
             }
         )
-
-        return { id: module.id, canvasId: res.id };
-    }));
+        newModules.push({ id: module.id, canvasId: res.id });
+    }
 
     return newModules;
 }
 
 const createStudyguide = async (ectsPages: Array<{ name: string, canvasId: number }>) => {
-    console.log("Creating studyguide")
-    console.log(ectsPages)
     // Create a new module for the studyguide
     const res = await canvas.module.create(
         courseConfig.canvasCourseId,
@@ -178,7 +173,6 @@ const createStudyguide = async (ectsPages: Array<{ name: string, canvasId: numbe
             position: 1
         }
     )
-    console.log("Module created ", res)
     // Add all pages to the module
     await Promise.all(ectsPages.map(async (page) => {
         await canvas.moduleItem.create(
@@ -206,7 +200,6 @@ const createSyllabus = async (studiewijzerModuleId: number) => {
         const blob = await fetchRes.blob();
         const res = await canvas.file.upload(courseConfig.canvasCourseId, blob, image.name);
         // Add the id to the images object
-        console.log("Image uploaded ", res)
         image.canvasId = res
     }));
     // Read the template syllabus from the file
@@ -227,6 +220,51 @@ const createSyllabus = async (studiewijzerModuleId: number) => {
     const res = await canvas.course.update(courseConfig.canvasCourseId, { syllabusBody: output, defaultView: CourseDefaultView.Syllabus });
 }
 
+const createModuleItems = async (newModules: Array<{ id: number, canvasId: number }>, newAssignments: Array<{ id: number, canvasId: number }>) => {
+    await Promise.all(courseConfig.moduleItems.moduleItemsItems.map(async (moduleItem) => {
+        const module = newModules.find((module) => module.id === moduleItem.moduleId);
+
+        if (!module) {
+            throw new Error(`Module with id ${moduleItem.moduleId} not found`);
+        }
+
+        let item;
+
+        switch (moduleItem.type) {
+            case ModuleItemType.Page:
+                // Todo
+                break;
+            case ModuleItemType.Assignment:
+                const assignment = newAssignments.find((assignment) => assignment.id === moduleItem.assignmentId);
+                if (!assignment) throw new Error(`Assignment with id ${moduleItem.moduleItemId} not found.`);
+                item = ModuleItem.createAssignmentItem(moduleItem.title, assignment!.canvasId);
+                break;
+            case ModuleItemType.File:
+                break;
+            case ModuleItemType.Discussion:
+                break;
+            case ModuleItemType.Quiz:
+                break;
+            case ModuleItemType.SubHeader:
+                item = ModuleItem.createSubHeaderItem(moduleItem.title);
+                break;
+            case ModuleItemType.ExternalUrl:
+                item = ModuleItem.createExternalUrlItem(moduleItem.title, moduleItem.exteralUrl);
+                break;
+            case ModuleItemType.ExternalTool:
+                break;
+        }
+
+
+
+        await canvas.moduleItem.create(
+            courseConfig.canvasCourseId,
+            module.canvasId,
+            item
+        )
+    }));
+}
+
 (async () => {
     const newGroups = await createAssignmentGroups();
     console.log("Assignment Groups created")
@@ -236,15 +274,17 @@ const createSyllabus = async (studiewijzerModuleId: number) => {
     console.log("Configuring ECTS pages")
     const ectsPages = await configureEcts();
     console.log("ECTS pages configured")
-    console.log("Creating studyguide")
-    const studyguideModuleId = await createStudyguide(ectsPages);
-    console.log("Studyguide created")
     console.log("Creating modules")
     const newModules = await createModules();
     console.log("Modules created")
+    await createModuleItems(newModules, newAssignments);
     console.log("Creating syllabus")
+    console.log("Creating studyguide")
+    const studyguideModuleId = await createStudyguide(ectsPages);
+    console.log("Studyguide created")
     await createSyllabus(studyguideModuleId);
     console.log("Syllabus created")
+    console.log("Done")
 })();
 
 

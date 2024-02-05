@@ -1,4 +1,4 @@
-enum ModuleItemType {
+export enum ModuleItemType {
     Page = "wiki_page",
     Assignment = "Assignment",
     File = "File",
@@ -9,17 +9,17 @@ enum ModuleItemType {
     ExternalTool = "ExternalTool"
 }
 
-class ModuleItem {
+export class ModuleItem {
     title: string;
     type: ModuleItemType;
-    contentId: number;
+    contentId?: number;
     position?: number;
     indent?: number;
     pageUrl?: string;
     externalUrl?: string;
     newTab?: boolean;
 
-    constructor(title: string, type: ModuleItemType, contentId: number, position?: number, indent?: number, pageUrl?: string, externalUrl?: string, newTab?: boolean) {
+    constructor(title: string, type: ModuleItemType, contentId?: number, position?: number, indent?: number, pageUrl?: string, externalUrl?: string, newTab?: boolean) {
         this.title = title;
         this.type = type;
         this.contentId = contentId;
@@ -35,6 +35,21 @@ class ModuleItem {
     }
 
 
+    static createAssignmentItem(title: string, assignmentCanvasId: number): ModuleItem {
+        return new ModuleItem(title, ModuleItemType.Assignment, assignmentCanvasId);
+    }
+
+
+    static createSubHeaderItem(title: string, indent?: number): any {
+        return new ModuleItem(title, ModuleItemType.SubHeader, undefined, undefined, indent);
+    }
+
+
+    static createExternalUrlItem(title: string, externalUrl: any): any {
+        return new ModuleItem(title, ModuleItemType.ExternalUrl, undefined, undefined, undefined, undefined, externalUrl);
+    }
+
+
     /**
      * Converts a ModuleItem object to FormData.
      * @param moduleItem - The ModuleItem object to convert.
@@ -42,9 +57,9 @@ class ModuleItem {
      */
     static toFormData(moduleItem: ModuleItem) {
         let formdata = new FormData();
-        formdata.append("module_item[title]", moduleItem.title);
+        if (moduleItem.title) formdata.append("module_item[title]", moduleItem.title);
         formdata.append("module_item[type]", moduleItem.type);
-        formdata.append("module_item[content_id]", moduleItem.contentId.toString());
+        if (moduleItem.contentId) formdata.append("module_item[content_id]", moduleItem.contentId.toString());
         if (moduleItem.position) formdata.append("module_item[position]", moduleItem.position.toString());
         if (moduleItem.indent) formdata.append("module_item[indent]", moduleItem.indent.toString());
         if (moduleItem.pageUrl) formdata.append("module_item[page_url]", moduleItem.pageUrl);
@@ -53,5 +68,3 @@ class ModuleItem {
         return formdata;
     }
 }
-
-export default ModuleItem;

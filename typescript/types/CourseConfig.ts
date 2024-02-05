@@ -137,9 +137,9 @@ export interface ModuleItemsItem {
   moduleItemId: number
   moduleId: number
   type: string
-  displayName: string
+  title: string
   published: boolean
   assignmentId: number
-  externalLink: string
+  exteralUrl: string
   indent: number
 }

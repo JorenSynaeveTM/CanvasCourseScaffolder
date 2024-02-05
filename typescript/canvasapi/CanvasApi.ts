@@ -4,7 +4,7 @@ import AssignmentGroup from "./types/AssignmentGroup";
 import Assignment from "./types/Assignment";
 import Page from "./types/Page";
 import Module from "./types/Module";
-import ModuleItem from "./types/ModuleItem";
+import { ModuleItem } from "./types/ModuleItem";
 
 const formdataHeader = {
     headers: {
