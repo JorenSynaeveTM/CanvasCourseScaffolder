@@ -238,30 +238,30 @@
         "moduleItemId": 1,
         "moduleId": 1,
         "type": "SubHeader",
-        "displayName": "Theorie",
+        "title": "Theorie",
         "published": true,
         "assignmentId": 0,
-        "externalLink": "",
+        "exteralUrl": "",
         "indent": 0
       },
       {
         "moduleItemId": 2,
         "moduleId": 1,
         "type": "Assignment",
-        "displayName": "01.00",
+        "title": "01.00",
         "published": true,
         "assignmentId": 1,
-        "externalLink": "",
+        "exteralUrl": "",
         "indent": 0
       },
       {
         "moduleItemId": 3,
         "moduleId": 2,
         "type": "ExternalUrl",
-        "displayName": "Oplossingen 1",
+        "title": "Oplossingen 1",
         "published": true,
         "assignmentId": 0,
-        "externalLink": "https://www.thomasmore.be",
+        "exteralUrl": "https://www.thomasmore.be",
         "indent": 0
       }
     ]
