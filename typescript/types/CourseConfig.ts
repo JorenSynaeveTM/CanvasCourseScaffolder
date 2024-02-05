@@ -100,6 +100,7 @@ export interface ModulesItem {
   id: number
   name: string
   published: boolean
+  position: number
 }
 
 export interface Assignments {

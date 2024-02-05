@@ -147,27 +147,32 @@
       {
         "id": 1,
         "name": "Module 1",
-        "published": true
+        "published": true,
+        "position": 1
       },
       {
         "id": 2,
         "name": "Module 2",
-        "published": true
+        "published": true,
+        "position": 2
       },
       {
         "id": 3,
         "name": "Module 3",
-        "published": true
+        "published": true,
+        "position": 3
       },
       {
         "id": 4,
         "name": "Module 4",
-        "published": false
+        "published": false,
+        "position": 4
       },
       {
         "id": 5,
         "name": "Module 5",
-        "published": false
+        "published": false,
+        "position": 5
       }
     ]
   },
@@ -211,7 +216,7 @@
         "pageId": 1,
         "name": "Leerdoelen",
         "published": true,
-        "bodyFile": "leerdoelen.html"
+        "bodyFile": null
       },
       {
         "pageId": 2,
@@ -232,7 +237,7 @@
       {
         "moduleItemId": 1,
         "moduleId": 1,
-        "type": "subHeader",
+        "type": "SubHeader",
         "displayName": "Theorie",
         "published": true,
         "assignmentId": 0,
@@ -242,7 +247,7 @@
       {
         "moduleItemId": 2,
         "moduleId": 1,
-        "type": "assignment",
+        "type": "Assignment",
         "displayName": "01.00",
         "published": true,
         "assignmentId": 1,
@@ -252,7 +257,7 @@
       {
         "moduleItemId": 3,
         "moduleId": 2,
-        "type": "externalUrl",
+        "type": "ExternalUrl",
         "displayName": "Oplossingen 1",
         "published": true,
         "assignmentId": 0,
