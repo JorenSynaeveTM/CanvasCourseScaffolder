@@ -6,17 +6,55 @@ import { ModuleItem, ModuleItemType } from "./canvasapi/types/ModuleItem";
 import { CourseDefaultView } from "./canvasapi/types/Course";
 import mustache from "mustache";
 
-
-
-
-
-
-const json = readFileSync("data/courseConfig.json", "utf8");
+const json = readFileSync("data/37237.json", "utf8");
 const courseConfig: CourseConfig = JSON.parse(json);
 const canvas = new Canvas(
     process.env.CANVAS_API_URL!,
     process.env.CANVAS_API_KEY!
 );
+
+const validateConfig = () => {
+    if (!courseConfig.canvasCourseId) throw new Error("canvasCourseId not set in config");
+    if (!courseConfig.tileImage) throw new Error("tileImage not set in config");
+    if (!courseConfig.courseInfo) throw new Error("courseInfo not set in config");
+    if (!courseConfig.lecturers) throw new Error("lecturers not set in config");
+    if (!courseConfig.assignmentGroups) throw new Error("assignmentGroups not set in config");
+    if (!courseConfig.assignments) throw new Error("assignments not set in config");
+    if (!courseConfig.ects) throw new Error("ects not set in config");
+    if (!courseConfig.modules) throw new Error("modules not set in config");
+    if (!courseConfig.moduleItems) throw new Error("moduleItems not set in config");
+    // Check ects
+    if (!courseConfig.ects.planning) throw new Error("ects.evaluation not set in config");
+    if (!courseConfig.ects.courseMaterial) throw new Error("ects.courseMaterial not set in config");
+    if (!courseConfig.ects.learningGoals) throw new Error("ects.learningGoals not set in config");
+    if (!courseConfig.ects.evaluation) throw new Error("ects.evaluation not set in config");
+    if (!courseConfig.ects.evaluation.firstAttempt) throw new Error("ects.evaluation.firstAttempt not set in config");
+    if (!courseConfig.ects.evaluation.secondAttempt) throw new Error("ects.evaluation.secondAttempt not set in config");
+    // Check planning
+    if (!courseConfig.ects.planning.planningItems) throw new Error("ects.planning.planningItems not set in config");
+    if (courseConfig.ects.planning.planningItems.length == 0) throw new Error("ects.planning.planningItems is empty");
+    // Check course material
+    if (!courseConfig.ects.courseMaterial.courseMaterialItems) throw new Error("ects.courseMaterial.courseMaterialItems not set in config");
+    if (courseConfig.ects.courseMaterial.courseMaterialItems.length == 0) throw new Error("ects.courseMaterial.courseMaterialItems is empty");
+    // Check learning goals
+    if (!courseConfig.ects.learningGoals.learningGoalsItems) throw new Error("ects.learningGoals.learningGoalsItems not set in config");
+    if (courseConfig.ects.learningGoals.learningGoalsItems.length == 0) throw new Error("ects.learningGoals.learningGoalsItems is empty");
+    // Check evaluation
+    if (!courseConfig.ects.evaluation.firstAttempt.firstAttemptItems) throw new Error("ects.evaluation.firstAttempt.firstAttemptItems not set in config");
+    if (courseConfig.ects.evaluation.firstAttempt.firstAttemptItems.length == 0) throw new Error("ects.evaluation.firstAttempt.firstAttemptItems is empty");
+    if (courseConfig.ects.evaluation.firstAttempt.firstAttemptItems.reduce((acc, item) => acc + item.percentageOfTotal, 0) !== 100) throw new Error("The sum of the percentages of the first attempt items should be 100");
+    if (!courseConfig.ects.evaluation.secondAttempt.secondAttemptItems) throw new Error("ects.evaluation.secondAttempt.secondAttemptItems not set in config");
+    if (courseConfig.ects.evaluation.secondAttempt.secondAttemptItems.length == 0) throw new Error("ects.evaluation.secondAttempt.secondAttemptItems is empty");
+    if (courseConfig.ects.evaluation.secondAttempt.secondAttemptItems.reduce((acc, item) => acc + item.percentageOfTotal, 0) !== 100) throw new Error("The sum of the percentages of the second attempt items should be 100");
+    // Check moduleItems
+    if (!courseConfig.moduleItems.moduleItemsItems) throw new Error("moduleItems.moduleItemsItems not set in config");
+    // Get all moduleIds
+    const moduleIds = courseConfig.modules.modulesItems.map((module) => module.id);
+    // Check if all moduleItems have a valid moduleId
+    courseConfig.moduleItems.moduleItemsItems.forEach((moduleItem) => {
+        if (!moduleIds.includes(moduleItem.moduleId)) throw new Error(`Module with id ${moduleItem.moduleId} not found`);
+    });
+}
 
 const createAssignmentGroups = async () => {
     var newGroups: Array<{ id: number, canvasId: number }> = await Promise.all(courseConfig.assignmentGroups.assignmentGroupsItems.map(async (assignmentGroup) => {
@@ -255,8 +293,6 @@ const createModuleItems = async (newModules: Array<{ id: number, canvasId: numbe
                 break;
         }
 
-
-
         await canvas.moduleItem.create(
             courseConfig.canvasCourseId,
             module.canvasId,
@@ -265,7 +301,21 @@ const createModuleItems = async (newModules: Array<{ id: number, canvasId: numbe
     }));
 }
 
+const updateTileImage = async () => {
+    const fetchRes = await fetch(courseConfig.tileImage);
+    const blob = await fetchRes.blob();
+    const res = await canvas.file.upload(courseConfig.canvasCourseId, blob, "course-image.png");
+    await canvas.course.update(courseConfig.canvasCourseId, { imageId: res });
+}
+
 (async () => {
+    try {
+        validateConfig();
+    } catch (error) {
+        const err = error as Error;
+        console.error("The config is not valid: ", err.message);
+        process.exit(1);
+    }
     const newGroups = await createAssignmentGroups();
     console.log("Assignment Groups created")
     console.log("Creating Assignments")
@@ -278,12 +328,15 @@ const createModuleItems = async (newModules: Array<{ id: number, canvasId: numbe
     const newModules = await createModules();
     console.log("Modules created")
     await createModuleItems(newModules, newAssignments);
-    console.log("Creating syllabus")
     console.log("Creating studyguide")
     const studyguideModuleId = await createStudyguide(ectsPages);
     console.log("Studyguide created")
+    console.log("Creating syllabus")
     await createSyllabus(studyguideModuleId);
     console.log("Syllabus created")
+    console.log("Creating tile image")
+    await updateTileImage();
+    console.log("Tile image created")
     console.log("Done")
 })();
 
